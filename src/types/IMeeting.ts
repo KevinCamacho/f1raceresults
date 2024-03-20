@@ -12,4 +12,4 @@ export interface IMeeting {
   gmt_offset: string;
   date_start: string;
   year: number;
-};
+}

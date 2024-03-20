@@ -1,3 +1,3 @@
 import { IMeeting } from "./IMeeting";
 
-export type { IMeeting }
+export type { IMeeting };
