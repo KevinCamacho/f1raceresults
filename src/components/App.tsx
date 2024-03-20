@@ -6,7 +6,7 @@ import { IMeeting } from "../types";
 const App: FC = () => {
   const { data, isFetching } = useRaceList();
 
-  console.log("hello world!");
+  conscosole.log("hello world!");
   const doIt = () => {
     return "hello";
   };
