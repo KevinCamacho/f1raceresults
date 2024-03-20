@@ -7,6 +7,9 @@ const App: FC = () => {
   const { data, isFetching } = useRaceList();
 
   console.log("hello world!");
+  const doIt = () => {
+    return "hello";
+  };
 
   if (isFetching) {
     return <div>data fetching</div>;
