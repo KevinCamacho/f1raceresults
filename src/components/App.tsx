@@ -4,12 +4,12 @@ import useRaceList from "../hooks/useRaceList";
 import { IMeeting } from "../types";
 
 const App: FC = () => {
-  const {data, isFetching} = useRaceList();
+  const { data, isFetching } = useRaceList();
+
+  console.log("hello world!");
 
   if (isFetching) {
-    return (
-      <div>data fetching</div>
-    )
+    return <div>data fetching</div>;
   }
 
   return (
@@ -21,7 +21,7 @@ const App: FC = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default App;
