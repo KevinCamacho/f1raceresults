@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import "./App.scss";
 import useRaceList from "../hooks/useRaceList";
 import { IMeeting } from "../types";
+import RaceTile from "./Race/RaceTile";
 
 const App: FC = () => {
   const { data, isFetching } = useRaceList();
@@ -12,12 +13,11 @@ const App: FC = () => {
 
   return (
     <div>
-      {data.map((meeting: IMeeting) => (
-        <div>
-          <div>{meeting.meeting_official_name}</div>
-          <div>{meeting.date_start}</div>
-        </div>
-      ))}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+        {data.map((meeting: IMeeting) => (
+          <RaceTile key={meeting.meeting_key} meeting={meeting} />
+        ))}
+      </div>
     </div>
   );
 };
