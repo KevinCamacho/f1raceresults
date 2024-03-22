@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import "./App.scss";
-import useRaceList from "../hooks/useRaceList";
+import useRaceList from "../hooks/useMeeting";
 import { IMeeting } from "../types";
 import RaceTile from "./Race/RaceTile";
 
