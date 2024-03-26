@@ -6,6 +6,7 @@ export interface ISession {
   country_name: string;
   date_end: string;
   date_start: string;
+  parsed_date_start: number;
   gmt_offset: string;
   location: string;
   meeting_key: number;

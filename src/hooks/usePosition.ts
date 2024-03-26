@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { IPosition } from "../types";
+import * as moment from "moment";
+import { timeParseFormat } from "../constants";
 
 const useRaceResult = (sessionKey: number) => {
   return useQuery<IPosition[]>({
@@ -17,7 +19,10 @@ const getFinishingPositions = (sessionKey: number): Promise<IPosition[]> => {
       .then((data) => data.json())
       .then((data: IPosition[]) =>
         data.map((position: IPosition) => {
-          return { ...position, parsed_date: Date.parse(position.date) };
+          return {
+            ...position,
+            parsed_date: moment.utc(position.date, timeParseFormat).valueOf(),
+          };
         }),
       )
       //this sorts the finishing positions in descending order
