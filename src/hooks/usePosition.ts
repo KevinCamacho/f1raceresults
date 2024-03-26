@@ -17,12 +17,12 @@ const getFinishingPositions = (sessionKey: number): Promise<IPosition[]> => {
       .then((data) => data.json())
       .then((data: IPosition[]) =>
         data.map((position: IPosition) => {
-          return { ...position, parsedDate: Date.parse(position.date) };
+          return { ...position, parsed_date: Date.parse(position.date) };
         }),
       )
       //this sorts the finishing positions in descending order
       .then((data: IPosition[]) =>
-        data.sort((a, b) => b.parsedDate - a.parsedDate),
+        data.sort((a, b) => b.parsed_date - a.parsed_date),
       )
   );
 };

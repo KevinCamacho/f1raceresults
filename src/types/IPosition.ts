@@ -1,6 +1,6 @@
 export interface IPosition {
   date: string;
-  parsedDate: number;
+  parsed_date: number;
   driver_number: number;
   meeting_key: number;
   position: number;
