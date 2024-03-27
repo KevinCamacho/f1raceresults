@@ -4,6 +4,7 @@ import { easyPrint } from "../util";
 import useRaceSession from "../../hooks/useSession";
 import useRaceResult from "../../hooks/usePosition";
 import { printLocalTime } from "../../constants";
+import useDrivers from "../../hooks/useDriver";
 
 const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: sessionData, isFetching: isRaceSessionFetching } =
@@ -11,10 +12,10 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: raceResult, isFetching: isRaceResultFetching } = useRaceResult(
     sessionData.session_key,
   );
+  const { data: driverData } = useDrivers(sessionData.session_key);
 
   const printData = () => {
-    console.log("HI ::: this is the session data", easyPrint(sessionData));
-    console.log("HI ::: this is the race result data", easyPrint(raceResult));
+    console.log("HI ::: driver data", easyPrint(driverData));
   };
 
   return (
