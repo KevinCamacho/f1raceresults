@@ -1,10 +1,9 @@
 import { FC } from "react";
 import { IMeeting } from "../../types";
-import { easyPrint } from "../util";
 import useRaceSession from "../../hooks/useSession";
-import useRaceResult from "../../hooks/usePosition";
 import { printLocalTime } from "../../constants";
-import useDrivers from "../../hooks/useDriver";
+import PodiumDisplay from "./PodiumDisplay";
+import useRaceResult from "../../hooks/usePosition";
 
 const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: sessionData, isFetching: isRaceSessionFetching } =
@@ -12,11 +11,12 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: raceResult, isFetching: isRaceResultFetching } = useRaceResult(
     sessionData.session_key,
   );
-  const { data: driverData } = useDrivers(sessionData.session_key);
 
-  const printData = () => {
-    console.log("HI ::: driver data", easyPrint(driverData));
-  };
+  const printData = () => {};
+
+  if (isRaceSessionFetching || isRaceResultFetching) {
+    return <div>race session loading</div>;
+  }
 
   return (
     <div
@@ -30,9 +30,8 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     >
       <div>{meeting.meeting_name}</div>
       <div>{meeting.circuit_short_name}</div>
-      {!isRaceSessionFetching && (
-        <div>{printLocalTime(sessionData.parsed_date_start)}</div>
-      )}
+      <div>{printLocalTime(sessionData.parsed_date_start)}</div>
+      <PodiumDisplay raceResult={raceResult} />
     </div>
   );
 };
