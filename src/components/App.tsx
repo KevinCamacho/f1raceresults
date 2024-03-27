@@ -1,8 +1,8 @@
 import { FC } from "react";
 import "./App.scss";
-import useRaceList from "../hooks/useMeeting";
 import { IMeeting } from "../types";
 import RaceTile from "./Race/RaceTile";
+import useRaceList from "../hooks/useMeeting";
 
 const App: FC = () => {
   const { data, isFetching } = useRaceList();
