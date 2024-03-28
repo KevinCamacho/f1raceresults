@@ -3,6 +3,7 @@ import "./App.scss";
 import { IMeeting } from "../types";
 import RaceTile from "./Race/RaceTile";
 import useRaceList from "../hooks/useMeeting";
+import Container from "react-bootstrap/Container";
 
 const App: FC = () => {
   const { data, isFetching } = useRaceList();
@@ -12,13 +13,13 @@ const App: FC = () => {
   }
 
   return (
-    <div>
+    <Container>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
         {data.map((meeting: IMeeting) => (
           <RaceTile key={meeting.meeting_key} meeting={meeting} />
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 

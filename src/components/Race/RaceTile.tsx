@@ -12,8 +12,6 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     sessionData.session_key,
   );
 
-  const printData = () => {};
-
   if (isRaceSessionFetching || isRaceResultFetching) {
     return <div>race session loading</div>;
   }
@@ -26,7 +24,6 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
         display: "flex",
         flexDirection: "column",
       }}
-      onClick={printData}
     >
       <div>{meeting.meeting_name}</div>
       <div>{meeting.circuit_short_name}</div>
