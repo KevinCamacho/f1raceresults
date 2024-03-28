@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { easyPrint } from "../util";
 import { useDriver } from "../../hooks/useDriver";
 import { IPosition } from "../../types";
 
@@ -17,24 +16,21 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
     raceResult[0].session_key,
   );
 
-  const printData = () => {
-    console.log(
-      "HI ::: the race result",
-      easyPrint(p1Driver),
-      easyPrint(p2Driver),
-      easyPrint(p3Driver),
-    );
-  };
-
   if (isP1DriverFetching || isP2DriverFetching || isP3DriverFetching) {
     return <div>race result loading</div>;
   }
 
   return (
-    <div onClick={printData}>
-      <div>P1: {p1Driver.full_name}</div>
-      <div>P2: {p2Driver.full_name}</div>
-      <div>P3: {p3Driver.full_name}</div>
+    <div>
+      <div>
+        P1: {p1Driver.last_name?.toUpperCase() || p1Driver.broadcast_name}
+      </div>
+      <div>
+        P2: {p2Driver.last_name?.toUpperCase() || p2Driver.broadcast_name}
+      </div>
+      <div>
+        P3: {p3Driver.last_name?.toUpperCase() || p3Driver.broadcast_name}
+      </div>
     </div>
   );
 };
