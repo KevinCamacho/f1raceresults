@@ -4,6 +4,7 @@ import useRaceSession from "../../hooks/useSession";
 import { printLocalTime } from "../../constants";
 import PodiumDisplay from "./PodiumDisplay";
 import useRaceResult from "../../hooks/usePosition";
+import { easyPrint } from "../util";
 
 const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: sessionData, isFetching: isRaceSessionFetching } =
@@ -27,8 +28,10 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     >
       <div>{meeting.meeting_name}</div>
       <div>{meeting.circuit_short_name}</div>
-      <div>{printLocalTime(sessionData.parsed_date_start)}</div>
-      <PodiumDisplay raceResult={raceResult} />
+      {!!sessionData.parsed_date_start && (
+        <div>{printLocalTime(sessionData.parsed_date_start)}</div>
+      )}
+      {!!raceResult.length && <PodiumDisplay raceResult={raceResult} />}
     </div>
   );
 };

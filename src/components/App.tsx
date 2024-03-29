@@ -13,7 +13,7 @@ const App: FC = () => {
   }
 
   return (
-    <Container>
+    <Container fluid="md">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
         {data.map((meeting: IMeeting) => (
           <RaceTile key={meeting.meeting_key} meeting={meeting} />
