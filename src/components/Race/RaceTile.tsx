@@ -21,10 +21,8 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     <div
       style={{
         border: "1px black solid",
-        padding: "16px",
-        display: "flex",
-        flexDirection: "column",
       }}
+      className="p-3 h-100"
     >
       <div>{meeting.meeting_name}</div>
       <div>{meeting.circuit_short_name}</div>
