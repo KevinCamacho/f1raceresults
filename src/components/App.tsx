@@ -1,7 +1,7 @@
 import { FC } from "react";
 import "./App.scss";
 import { IMeeting } from "../types";
-import RaceTile from "./Race/RaceTile";
+import RaceTile from "./Race/RaceCard";
 import useRaceList from "../hooks/useMeeting";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";

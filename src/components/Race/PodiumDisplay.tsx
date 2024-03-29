@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useDriver } from "../../hooks/useDriver";
 import { IPosition } from "../../types";
+import Placeholder from "react-bootstrap/Placeholder";
 
 const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   const { data: p1Driver, isFetching: isP1DriverFetching } = useDriver(
@@ -17,7 +18,13 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   );
 
   if (isP1DriverFetching || isP2DriverFetching || isP3DriverFetching) {
-    return <div>race result loading</div>;
+    return (
+      <Placeholder animation="glow">
+        <Placeholder xs={8} />
+        <Placeholder xs={8} />
+        <Placeholder xs={8} />
+      </Placeholder>
+    );
   }
 
   return (
