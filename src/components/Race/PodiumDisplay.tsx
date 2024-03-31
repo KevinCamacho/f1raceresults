@@ -2,6 +2,9 @@ import { FC } from "react";
 import { useDriver } from "../../hooks/useDriver";
 import { IPosition } from "../../types";
 import Placeholder from "react-bootstrap/Placeholder";
+import Badge from "react-bootstrap/Badge";
+import Stack from "react-bootstrap/Stack";
+import FinishBadge from "./FinishBadge";
 
 const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   const { data: p1Driver, isFetching: isP1DriverFetching } = useDriver(
@@ -28,17 +31,11 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   }
 
   return (
-    <div>
-      <div>
-        P1: {p1Driver.last_name?.toUpperCase() || p1Driver.broadcast_name}
-      </div>
-      <div>
-        P2: {p2Driver.last_name?.toUpperCase() || p2Driver.broadcast_name}
-      </div>
-      <div>
-        P3: {p3Driver.last_name?.toUpperCase() || p3Driver.broadcast_name}
-      </div>
-    </div>
+    <Stack gap={2}>
+      <FinishBadge finishingPosition={1} driver={p1Driver} />
+      <FinishBadge finishingPosition={2} driver={p2Driver} />
+      <FinishBadge finishingPosition={3} driver={p3Driver} />
+    </Stack>
   );
 };
 
