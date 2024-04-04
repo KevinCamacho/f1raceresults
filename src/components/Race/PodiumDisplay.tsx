@@ -4,7 +4,7 @@ import { IPosition } from "../../types";
 import Placeholder from "react-bootstrap/Placeholder";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
-import FinishBadge from "./FinishBadge";
+import FinishBadge from "./FinishBadge/FinishBadge";
 
 const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   const { data: p1Driver, isFetching: isP1DriverFetching } = useDriver(
@@ -23,9 +23,9 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   if (isP1DriverFetching || isP2DriverFetching || isP3DriverFetching) {
     return (
       <Placeholder animation="glow">
-        <Placeholder xs={8} />
-        <Placeholder xs={8} />
-        <Placeholder xs={8} />
+        <Placeholder xs={12} />
+        <Placeholder xs={12} />
+        <Placeholder xs={12} />
       </Placeholder>
     );
   }

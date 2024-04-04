@@ -25,10 +25,9 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
             <Placeholder xs={6} />
           </Placeholder>
           <Placeholder as={Card.Text} animation="glow">
-            {/* <Placeholder xs={10} /> */}
-            <Placeholder xs={8} />
-            <Placeholder xs={8} />
-            <Placeholder xs={8} />
+            <Placeholder xs={12} />
+            <Placeholder xs={12} />
+            <Placeholder xs={12} />
           </Placeholder>
         </Card.Body>
       </Card>
@@ -39,14 +38,10 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     <Card className="h-100">
       <Card.Header as="h5">{meeting.meeting_name}</Card.Header>
       <Card.Body>
-        {/* <Card.Title>{meeting.meeting_name}</Card.Title> */}
         <Card.Subtitle className="mb-2 text-muted">
           {meeting.circuit_short_name}
         </Card.Subtitle>
         <Card.Text>
-          {/* {!!sessionData.parsed_date_start && (
-              <div>{printLocalTime(sessionData.parsed_date_start)}</div>
-            )} */}
           {!!raceResult.length && <PodiumDisplay raceResult={raceResult} />}
         </Card.Text>
       </Card.Body>
