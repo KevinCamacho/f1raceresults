@@ -7,7 +7,7 @@ const useRaceSession = (meetingKey: number) => {
   return useQuery<ISession>({
     queryKey: ["useRaceSession", meetingKey],
     queryFn: () => getRaceSession(meetingKey),
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     initialData: {
       circuit_key: 0,
       circuit_short_name: "",

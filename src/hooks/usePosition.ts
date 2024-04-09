@@ -7,7 +7,7 @@ const useRaceResult = (sessionKey: number) => {
   return useQuery<IPosition[]>({
     queryKey: ["useRaceResult", sessionKey],
     queryFn: () => getFinishingPositions(sessionKey),
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     initialData: [],
     enabled: !!sessionKey,
   });

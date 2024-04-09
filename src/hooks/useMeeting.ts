@@ -5,7 +5,7 @@ const useRaceList = () => {
   return useQuery<IMeeting[]>({
     queryKey: ["useRaceList"],
     queryFn: getAllMeetings,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     initialData: [],
   });
 };

@@ -1,12 +1,18 @@
 import { FC } from "react";
-import { IDriver } from "../../../types/IDriver";
-import Badge from "react-bootstrap/Badge";
+import Placeholder from "react-bootstrap/Placeholder";
 import "./FinishBadge.scss";
+import { useDriver } from "../../../hooks/useDriver";
 
-const FinishBadge: FC<{ finishingPosition: number; driver: IDriver }> = ({
-  finishingPosition,
-  driver,
-}) => {
+const FinishBadge: FC<{
+  finishingPosition: number;
+  session_key: number;
+  driver_number: number;
+}> = ({ finishingPosition, session_key, driver_number }) => {
+  const { data: driver, isFetching: isDriverFetching } = useDriver(
+    driver_number,
+    session_key,
+  );
+
   const getColor = () => {
     switch (finishingPosition) {
       case 1:
@@ -20,9 +26,17 @@ const FinishBadge: FC<{ finishingPosition: number; driver: IDriver }> = ({
     }
   };
 
+  if (isDriverFetching) {
+    return (
+      <Placeholder animation="glow">
+        <Placeholder xs={12} />
+      </Placeholder>
+    );
+  }
+
   return (
     <div className="finish-badge" style={{ background: getColor() }}>
-      {`P${finishingPosition}: ${driver.broadcast_name}`}
+      {`P${finishingPosition}: ${driver!.broadcast_name}`}
     </div>
   );
 };
