@@ -1,19 +1,17 @@
 import { FC } from "react";
 import Placeholder from "react-bootstrap/Placeholder";
 import "./FinishBadge.scss";
-import { useDriver } from "../../../hooks/useDriver";
+import { IDriver } from "../../../types";
 
 const FinishBadge: FC<{
   finishingPosition: number;
-  session_key: number;
-  driver_number: number;
-}> = ({ finishingPosition, session_key, driver_number }) => {
-  const { data: driver, isFetching: isDriverFetching } = useDriver(
-    driver_number,
-    session_key,
-  );
-
+  displayTeamColor?: boolean;
+  driver: IDriver;
+}> = ({ finishingPosition, displayTeamColor, driver }) => {
   const getColor = () => {
+    if (displayTeamColor) {
+      return `#${driver.team_colour?.length === 6 ? driver.team_colour : "000000"}`;
+    }
     switch (finishingPosition) {
       case 1:
         return "#c9b037";
@@ -22,22 +20,22 @@ const FinishBadge: FC<{
       case 3:
         return "#ad8a56";
       default:
-        return "black";
+        return "#000000";
     }
   };
-
-  if (isDriverFetching) {
-    return (
-      <Placeholder animation="glow">
-        <Placeholder xs={12} />
-      </Placeholder>
-    );
-  }
 
   return (
     <div className="finish-badge" style={{ background: getColor() }}>
       {`P${finishingPosition}: ${driver!.broadcast_name}`}
     </div>
+  );
+};
+
+export const getFinishBadgeLoadingState = () => {
+  return (
+    <Placeholder animation="glow">
+      <Placeholder xs={12} />
+    </Placeholder>
   );
 };
 
