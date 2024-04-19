@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import RaceResultStack from "./RaceResultStack";
+import { printLocalTime } from "../../constants";
 
 const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: sessionData, isFetching: isRaceSessionFetching } =
@@ -29,6 +30,7 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
         <Card.Body>
           <Placeholder as={Card.Subtitle} animation="glow">
             <Placeholder xs={6} />
+            <Placeholder xs={12} />
           </Placeholder>
           <Placeholder as={Card.Text} animation="glow">
             <Placeholder xs={12} />
@@ -48,6 +50,34 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     setShowResultOffCanvas(false);
   };
 
+  const renderWeekendInProgress = () => {
+    return (
+      <>
+        <Card.Subtitle className="mb-2 text-muted">
+          <div>{meeting.circuit_short_name}</div>
+          <div>{printLocalTime(meeting.parsed_date_start)}</div>
+        </Card.Subtitle>
+        <Card.Text>
+          <div>Weekend in progress</div>
+        </Card.Text>
+      </>
+    );
+  };
+
+  const renderWeekendFinished = () => {
+    return (
+      <>
+        <Card.Subtitle className="mb-2 text-muted">
+          <div>{meeting.circuit_short_name}</div>
+          <div>{printLocalTime(sessionData.parsed_date_start)}</div>
+        </Card.Subtitle>
+        <Card.Text>
+          {!!raceResult.length && <PodiumDisplay raceResult={raceResult} />}
+        </Card.Text>
+      </>
+    );
+  };
+
   return (
     <>
       <Card
@@ -57,12 +87,9 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
       >
         <Card.Header as="h5">{meeting.meeting_name}</Card.Header>
         <Card.Body>
-          <Card.Subtitle className="mb-2 text-muted">
-            {meeting.circuit_short_name}
-          </Card.Subtitle>
-          <Card.Text>
-            {!!raceResult.length && <PodiumDisplay raceResult={raceResult} />}
-          </Card.Text>
+          {sessionData.session_key
+            ? renderWeekendFinished()
+            : renderWeekendInProgress()}
         </Card.Body>
       </Card>
       <Offcanvas show={showResultOffCanvas} onHide={closeResultOffcanvas}>

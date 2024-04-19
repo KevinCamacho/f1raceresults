@@ -11,5 +11,6 @@ export interface IMeeting {
   meeting_official_name: string;
   gmt_offset: string;
   date_start: string;
+  parsed_date_start: number;
   year: number;
 }
