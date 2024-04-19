@@ -7,7 +7,7 @@ import FinishBadge, {
 import { useDrivers } from "../../hooks/useDriver";
 
 const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
-  const { data, isFetching } = useDrivers(raceResult[0].session_key);
+  const { data: drivers, isFetching } = useDrivers(raceResult[0].session_key);
 
   if (isFetching) {
     return (
@@ -24,19 +24,19 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
       <FinishBadge
         finishingPosition={1}
         driver={
-          data.find((x) => x.driver_number === raceResult[0].driver_number)!
+          drivers.find((x) => x.driver_number === raceResult[0].driver_number)!
         }
       />
       <FinishBadge
         finishingPosition={2}
         driver={
-          data.find((x) => x.driver_number === raceResult[1].driver_number)!
+          drivers.find((x) => x.driver_number === raceResult[1].driver_number)!
         }
       />
       <FinishBadge
         finishingPosition={3}
         driver={
-          data.find((x) => x.driver_number === raceResult[2].driver_number)!
+          drivers.find((x) => x.driver_number === raceResult[2].driver_number)!
         }
       />
     </Stack>
