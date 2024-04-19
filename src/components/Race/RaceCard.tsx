@@ -82,8 +82,8 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
     <>
       <Card
         className="h-100"
-        onClick={openResultOffcanvas}
-        style={{ cursor: "pointer" }}
+        onClick={() => sessionData.session_key && openResultOffcanvas()}
+        style={sessionData.session_key ? { cursor: "pointer" } : {}}
       >
         <Card.Header as="h5">{meeting.meeting_name}</Card.Header>
         <Card.Body>
