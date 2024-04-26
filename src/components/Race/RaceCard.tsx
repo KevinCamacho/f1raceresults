@@ -8,10 +8,13 @@ import Placeholder from "react-bootstrap/Placeholder";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import RaceResultStack from "./RaceResultStack";
 import { printLocalTime } from "../../constants";
+import { useInView } from "react-intersection-observer";
 
 const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
+  const { ref, inView } = useInView();
+
   const { data: sessionData, isFetching: isRaceSessionFetching } =
-    useRaceSession(meeting.meeting_key);
+    useRaceSession(meeting.meeting_key, inView);
   const { data: raceResult, isFetching: isRaceResultFetching } = useRaceResult(
     sessionData.session_key,
   );
@@ -81,6 +84,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   return (
     <>
       <Card
+        ref={ref}
         className="h-100"
         onClick={() => sessionData.session_key && openResultOffcanvas()}
         style={sessionData.session_key ? { cursor: "pointer" } : {}}

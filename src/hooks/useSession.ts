@@ -3,11 +3,12 @@ import { ISession } from "../types";
 import * as moment from "moment";
 import { timeParseFormat } from "../constants";
 
-const useRaceSession = (meetingKey: number) => {
+const useRaceSession = (meetingKey: number, enabled: boolean) => {
   return useQuery<ISession>({
     queryKey: ["useRaceSession", meetingKey],
     queryFn: () => getRaceSession(meetingKey),
     refetchOnWindowFocus: false,
+    enabled: enabled,
     initialData: {
       circuit_key: 0,
       circuit_short_name: "",
