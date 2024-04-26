@@ -1,7 +1,7 @@
 import { FC } from "react";
 import "./App.scss";
 import { IMeeting } from "../types";
-import RaceTile from "./Race/RaceCard";
+import RaceCard from "./Race/RaceCard";
 import useRaceList from "../hooks/useMeeting";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -19,7 +19,7 @@ const App: FC = () => {
       <Row style={{ rowGap: "1rem" }}>
         {data.map((meeting: IMeeting) => (
           <Col xs={12} sm={6} md={4} lg={3} key={meeting.meeting_key}>
-            <RaceTile meeting={meeting} />
+            <RaceCard meeting={meeting} />
           </Col>
         ))}
       </Row>

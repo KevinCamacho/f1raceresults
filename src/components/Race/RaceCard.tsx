@@ -9,7 +9,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import RaceResultStack from "./RaceResultStack";
 import { printLocalTime } from "../../constants";
 
-const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
+const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: sessionData, isFetching: isRaceSessionFetching } =
     useRaceSession(meeting.meeting_key);
   const { data: raceResult, isFetching: isRaceResultFetching } = useRaceResult(
@@ -104,4 +104,4 @@ const RaceTile: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   );
 };
 
-export default RaceTile;
+export default RaceCard;
