@@ -18,7 +18,7 @@ const App: FC = () => {
 
   return (
     <>
-      <Navbar expand="sm" className="bg-body-tertiary">
+      <Navbar className="bg-body-tertiary">
         <Container fluid>
           <Navbar.Brand>F1 Race Results</Navbar.Brand>
 
