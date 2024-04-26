@@ -3,17 +3,17 @@ import { IMeeting } from "../types";
 import * as moment from "moment";
 import { timeParseFormat } from "../constants";
 
-const useRaceList = () => {
+const useRaceList = (year: string) => {
   return useQuery<IMeeting[]>({
-    queryKey: ["useRaceList"],
-    queryFn: getAllMeetings,
+    queryKey: ["useRaceList", year],
+    queryFn: () => getAllMeetings(year),
     refetchOnWindowFocus: false,
     initialData: [],
   });
 };
 
-const getAllMeetings = (): Promise<IMeeting[]> => {
-  return fetch("https://api.openf1.org/v1/meetings?year=2024")
+const getAllMeetings = (year: string): Promise<IMeeting[]> => {
+  return fetch(`https://api.openf1.org/v1/meetings?year=${year}`)
     .then((data) => data.json())
     .then((data: IMeeting[]) =>
       data.map((meeting: IMeeting) => {
