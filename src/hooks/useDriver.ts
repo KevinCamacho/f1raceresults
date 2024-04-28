@@ -6,7 +6,6 @@ export const useDrivers = (session_key: number) => {
     queryKey: ["useDrivers", session_key],
     queryFn: () => getAllDriversInSession(session_key),
     refetchOnWindowFocus: false,
-    initialData: [],
     enabled: !!session_key,
   });
 };
@@ -16,20 +15,6 @@ export const useDriver = (driver_number: number, session_key: number) => {
     queryKey: ["useDriver", driver_number, session_key],
     queryFn: () => getSingleDriverInSession(driver_number, session_key),
     refetchOnWindowFocus: false,
-    initialData: {
-      broadcast_name: "",
-      country_code: "",
-      driver_number: 0,
-      first_name: "",
-      full_name: "",
-      headshot_url: "",
-      last_name: "",
-      meeting_key: 0,
-      name_acronym: "",
-      session_key: 0,
-      team_colour: "",
-      team_name: "",
-    },
     enabled: !!driver_number && !!session_key,
   });
 };

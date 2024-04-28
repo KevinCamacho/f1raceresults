@@ -9,23 +9,6 @@ const useRaceSession = (meetingKey: number, enabled: boolean) => {
     queryFn: () => getRaceSession(meetingKey),
     refetchOnWindowFocus: false,
     enabled: enabled,
-    initialData: {
-      circuit_key: 0,
-      circuit_short_name: "",
-      country_code: "",
-      country_key: 0,
-      country_name: "",
-      date_end: "",
-      parsed_date_start: 0,
-      date_start: "",
-      gmt_offset: "",
-      location: "",
-      meeting_key: 0,
-      session_key: 0,
-      session_name: "",
-      session_type: "",
-      year: "",
-    },
   });
 };
 

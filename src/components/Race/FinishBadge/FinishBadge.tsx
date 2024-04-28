@@ -26,7 +26,7 @@ const FinishBadge: FC<{
 
   return (
     <div className="finish-badge" style={{ background: getColor() }}>
-      {`P${finishingPosition}: ${driver!.broadcast_name}`}
+      {`P${finishingPosition}: ${driver.broadcast_name}`}
     </div>
   );
 };

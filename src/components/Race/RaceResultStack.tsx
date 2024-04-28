@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IPosition } from "../../types";
+import { IDriver, IPosition } from "../../types";
 import Stack from "react-bootstrap/Stack";
 import FinishBadge from "./FinishBadge/FinishBadge";
 import { useDrivers } from "../../hooks/useDriver";
@@ -7,6 +7,11 @@ import { getFinishBadgeLoadingState } from "./FinishBadge/FinishBadge";
 
 const RaceResultStack: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   const { data: drivers, isFetching } = useDrivers(raceResult[0].session_key);
+  const driversInOrder: IDriver[] | undefined =
+    drivers &&
+    raceResult.map(
+      (x) => drivers.find((y) => y.driver_number === x.driver_number)!,
+    );
 
   if (isFetching) {
     <Stack gap={2}>
@@ -16,16 +21,24 @@ const RaceResultStack: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
 
   return (
     <Stack gap={2}>
-      {raceResult.map((position: IPosition, index: number) => (
+      {driversInOrder?.map((driver: IDriver, index: number) => (
+        <FinishBadge
+          key={`raceResultStack${driver.session_key}${driver.driver_number}`}
+          finishingPosition={++index}
+          displayTeamColor
+          driver={driver}
+        />
+      ))}
+      {/* {raceResult.map((position: IPosition, index: number) => (
         <FinishBadge
           key={`raceResultStack${position.session_key}${position.driver_number}`}
           finishingPosition={++index}
           displayTeamColor
           driver={
-            drivers.find((x) => x.driver_number === position.driver_number)!
+            drivers?.find((x) => x.driver_number === position.driver_number)
           }
         />
-      ))}
+      ))} */}
     </Stack>
   );
 };

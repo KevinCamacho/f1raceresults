@@ -8,7 +8,6 @@ const useRaceList = (year: string) => {
     queryKey: ["useRaceList", year],
     queryFn: () => getAllMeetings(year),
     refetchOnWindowFocus: false,
-    initialData: [],
   });
 };
 

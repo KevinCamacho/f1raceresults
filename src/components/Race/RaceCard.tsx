@@ -16,7 +16,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { data: sessionData, isFetching: isRaceSessionFetching } =
     useRaceSession(meeting.meeting_key, inView);
   const { data: raceResult, isFetching: isRaceResultFetching } = useRaceResult(
-    sessionData.session_key,
+    sessionData?.session_key || 0,
   );
 
   const [showResultOffCanvas, setShowResultOffCanvas] =
@@ -72,10 +72,10 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
       <>
         <Card.Subtitle className="mb-2 text-muted">
           <div>{meeting.circuit_short_name}</div>
-          <div>{printLocalTime(sessionData.parsed_date_start)}</div>
+          <div>{printLocalTime(sessionData?.parsed_date_start || 0)}</div>
         </Card.Subtitle>
         <Card.Text>
-          {!!raceResult.length && <PodiumDisplay raceResult={raceResult} />}
+          {raceResult?.length && <PodiumDisplay raceResult={raceResult} />}
         </Card.Text>
       </>
     );
@@ -86,12 +86,12 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
       <Card
         ref={ref}
         className="h-100"
-        onClick={() => sessionData.session_key && openResultOffcanvas()}
-        style={sessionData.session_key ? { cursor: "pointer" } : {}}
+        onClick={() => sessionData?.session_key && openResultOffcanvas()}
+        style={sessionData?.session_key ? { cursor: "pointer" } : {}}
       >
         <Card.Header as="h5">{meeting.meeting_name}</Card.Header>
         <Card.Body>
-          {sessionData.session_key
+          {sessionData?.session_key
             ? renderWeekendFinished()
             : renderWeekendInProgress()}
         </Card.Body>
@@ -101,7 +101,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
           <Offcanvas.Title>{meeting.meeting_name}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <RaceResultStack raceResult={raceResult} />
+          <RaceResultStack raceResult={raceResult || []} />
         </Offcanvas.Body>
       </Offcanvas>
     </>
