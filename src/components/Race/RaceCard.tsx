@@ -75,7 +75,11 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
           <div>{printLocalTime(sessionData?.parsed_date_start || 0)}</div>
         </Card.Subtitle>
         <Card.Text>
-          {raceResult?.length && <PodiumDisplay raceResult={raceResult} />}
+          {raceResult?.length && (
+            <div className="pt-3">
+              <PodiumDisplay raceResult={raceResult} />
+            </div>
+          )}
         </Card.Text>
       </>
     );

@@ -29,16 +29,6 @@ const RaceResultStack: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
           driver={driver}
         />
       ))}
-      {/* {raceResult.map((position: IPosition, index: number) => (
-        <FinishBadge
-          key={`raceResultStack${position.session_key}${position.driver_number}`}
-          finishingPosition={++index}
-          displayTeamColor
-          driver={
-            drivers?.find((x) => x.driver_number === position.driver_number)
-          }
-        />
-      ))} */}
     </Stack>
   );
 };
