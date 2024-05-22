@@ -2,8 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { IMeeting } from "../types";
 import * as moment from "moment";
 import { timeParseFormat } from "../constants";
+import axios from "axios";
 
-const useRaceList = (year: string) => {
+const useYearlyMeetings = (year: string) => {
   return useQuery<IMeeting[]>({
     queryKey: ["useRaceList", year],
     queryFn: () => getAllMeetings(year),
@@ -12,17 +13,19 @@ const useRaceList = (year: string) => {
 };
 
 const getAllMeetings = (year: string): Promise<IMeeting[]> => {
-  return fetch(`https://api.openf1.org/v1/meetings?year=${year}`)
-    .then((data) => data.json())
-    .then((data: IMeeting[]) =>
-      data.map((meeting: IMeeting) => {
+  return axios
+    .get(`https://api.openf1.org/v1/meetings?year=${year}`)
+    .then(({ data }: { data: IMeeting[] }) => data)
+    .then((data: IMeeting[]) => {
+      return data.map((meeting: IMeeting) => {
         return {
           ...meeting,
-          parsed_data_start: moment.utc(meeting.date_start, timeParseFormat)
-            .valueOf,
+          parsed_date_start: moment
+            .utc(meeting.date_start, timeParseFormat)
+            .valueOf(),
         };
-      }),
-    );
+      });
+    });
 };
 
-export default useRaceList;
+export default useYearlyMeetings;

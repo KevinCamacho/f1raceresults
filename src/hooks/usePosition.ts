@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { IPosition } from "../types";
 import * as moment from "moment";
 import { timeParseFormat } from "../constants";
+import axios from "axios";
 
 const useRaceResult = (sessionKey: number) => {
   return useQuery<IPosition[]>({
@@ -14,16 +15,17 @@ const useRaceResult = (sessionKey: number) => {
 
 const getFinishingPositions = (sessionKey: number): Promise<IPosition[]> => {
   return (
-    fetch(`https://api.openf1.org/v1/position?session_key=${sessionKey}`)
-      .then((data) => data.json())
-      .then((data: IPosition[]) =>
-        data.map((position: IPosition) => {
+    axios
+      .get(`https://api.openf1.org/v1/position?session_key=${sessionKey}`)
+      .then((response) => {
+        const { data }: { data: IPosition[] } = response;
+        return data.map((position: IPosition) => {
           return {
             ...position,
             parsed_date: moment.utc(position.date, timeParseFormat).valueOf(),
           };
-        }),
-      )
+        });
+      })
       //this sorts the finishing positions in descending order by timestamp
       .then((data: IPosition[]) =>
         data.sort((a, b) => b.parsed_date - a.parsed_date),

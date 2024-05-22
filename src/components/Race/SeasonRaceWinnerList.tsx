@@ -3,10 +3,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { IMeeting } from "../../types";
 import RaceCard from "./RaceCard";
-import useRaceList from "../../hooks/useMeeting";
+import useYearlyMeetings from "../../hooks/useMeeting";
 
 const SeasonRaceWinnerList: FC<{ year: string }> = ({ year }) => {
-  const { data, isFetching } = useRaceList(year);
+  const { data, isFetching } = useYearlyMeetings(year);
 
   if (isFetching) {
     return <div>data fetching</div>;
