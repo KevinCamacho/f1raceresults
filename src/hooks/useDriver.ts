@@ -6,7 +6,6 @@ export const useDrivers = (session_key: number) => {
   return useQuery<IDriver[]>({
     queryKey: ["useDrivers", session_key],
     queryFn: () => getAllDriversInSession(session_key),
-    refetchOnWindowFocus: false,
     enabled: !!session_key,
   });
 };
@@ -15,7 +14,6 @@ export const useDriver = (driver_number: number, session_key: number) => {
   return useQuery<IDriver>({
     queryKey: ["useDriver", driver_number, session_key],
     queryFn: () => getSingleDriverInSession(driver_number, session_key),
-    refetchOnWindowFocus: false,
     enabled: !!driver_number && !!session_key,
   });
 };

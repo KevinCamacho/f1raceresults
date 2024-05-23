@@ -8,7 +8,6 @@ const useYearlyMeetings = (year: string) => {
   return useQuery<IMeeting[]>({
     queryKey: ["useRaceList", year],
     queryFn: () => getAllMeetings(year),
-    refetchOnWindowFocus: false,
   });
 };
 

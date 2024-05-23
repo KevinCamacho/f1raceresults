@@ -8,7 +8,6 @@ const useRaceSession = (meetingKey: number, enabled: boolean) => {
   return useQuery<ISession>({
     queryKey: ["useRaceSession", meetingKey],
     queryFn: () => getRaceSession(meetingKey),
-    refetchOnWindowFocus: false,
     enabled: enabled,
   });
 };

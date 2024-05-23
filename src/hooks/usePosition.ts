@@ -8,7 +8,6 @@ const useRaceResult = (sessionKey: number) => {
   return useQuery<IPosition[]>({
     queryKey: ["useRaceResult", sessionKey],
     queryFn: () => getFinishingPositions(sessionKey),
-    refetchOnWindowFocus: false,
     enabled: !!sessionKey,
   });
 };
