@@ -4,11 +4,11 @@ import * as moment from "moment";
 import { timeParseFormat } from "../constants";
 import axios from "axios";
 
-const useRaceResult = (sessionKey: number) => {
+const useRacePositions = (sessionKey: number, inView: boolean) => {
   return useQuery<IPosition[]>({
-    queryKey: ["useRaceResult", sessionKey],
+    queryKey: ["useRacePositions", sessionKey],
     queryFn: () => getFinishingPositions(sessionKey),
-    enabled: !!sessionKey,
+    enabled: !!sessionKey && inView,
   });
 };
 
@@ -46,4 +46,4 @@ const getFinishingPositions = (sessionKey: number): Promise<IPosition[]> => {
   );
 };
 
-export default useRaceResult;
+export default useRacePositions;

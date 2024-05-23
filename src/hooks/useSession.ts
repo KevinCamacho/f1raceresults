@@ -4,28 +4,28 @@ import * as moment from "moment";
 import { timeParseFormat } from "../constants";
 import axios from "axios";
 
-const useRaceSession = (meetingKey: number, enabled: boolean) => {
-  return useQuery<ISession>({
-    queryKey: ["useRaceSession", meetingKey],
-    queryFn: () => getRaceSession(meetingKey),
-    enabled: enabled,
+const useRaceSession = (year: number, meetingKey: number) => {
+  return useQuery<ISession[]>({
+    queryKey: ["useRaceSession", year],
+    queryFn: () => getRaceSessionsForYear(year),
+    select: (data) => getRaceSessionByMeetingKey(data, meetingKey),
   });
 };
 
-const getRaceSession = (meetingKey: number): Promise<ISession> => {
+const getRaceSessionByMeetingKey = (races: ISession[], meetingKey: number) =>
+  races.filter((race: ISession) => race.meeting_key === meetingKey);
+
+const getRaceSessionsForYear = (year: number): Promise<ISession[]> => {
   return axios
-    .get(
-      `https://api.openf1.org/v1/sessions?meeting_key=${meetingKey}&session_name=Race`,
-    )
+    .get(`https://api.openf1.org/v1/sessions?year=${year}&session_name=Race`)
     .then((response) => {
       const { data }: { data: ISession[] } = response;
-      const raceSession: ISession = data[0];
-      return {
-        ...raceSession,
+      return data.map((race: ISession) => ({
+        ...race,
         parsed_date_start: moment
-          .utc(raceSession.date_start, timeParseFormat)
+          .utc(race.date_start, timeParseFormat)
           .valueOf(),
-      };
+      }));
     });
 };
 

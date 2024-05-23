@@ -6,7 +6,7 @@ import axios from "axios";
 
 const useYearlyMeetings = (year: string) => {
   return useQuery<IMeeting[]>({
-    queryKey: ["useRaceList", year],
+    queryKey: ["useYearlyMeetings", year],
     queryFn: () => getAllMeetings(year),
   });
 };
