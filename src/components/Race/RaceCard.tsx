@@ -9,6 +9,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import RaceResultStack from "./RaceResultStack";
 import { printLocalTime } from "../../constants";
 import { useInView } from "react-intersection-observer";
+import { getPodiumDisplayLoadingState } from "./PodiumDisplay";
 
 const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { ref, inView } = useInView();
@@ -24,7 +25,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const [showResultOffCanvas, setShowResultOffCanvas] =
     useState<Boolean>(false);
 
-  if (isRaceSessionFetching || isRaceResultFetching) {
+  if (isRaceSessionFetching) {
     return (
       <Card className="h-100">
         <Card.Header>
@@ -38,9 +39,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
             <Placeholder xs={12} />
           </Placeholder>
           <Placeholder as={Card.Text} animation="glow">
-            <Placeholder xs={12} />
-            <Placeholder xs={12} />
-            <Placeholder xs={12} />
+            {getPodiumDisplayLoadingState()}
           </Placeholder>
         </Card.Body>
       </Card>
@@ -78,14 +77,20 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
       <>
         <Card.Subtitle className="mb-2 text-muted">
           <div>{meeting.circuit_short_name}</div>
-          <div>{printLocalTime(sessionData?.[0].parsed_date_start || 0)}</div>
+          {sessionData ? (
+            <div>{printLocalTime(sessionData?.[0].parsed_date_start)}</div>
+          ) : (
+            <></>
+          )}
         </Card.Subtitle>
         <Card.Text>
-          {raceResult?.length && (
-            <div className="pt-3">
-              <PodiumDisplay raceResult={raceResult} />
-            </div>
-          )}
+          {isRaceResultFetching
+            ? getPodiumDisplayLoadingState()
+            : raceResult?.length && (
+                <div className="pt-3">
+                  <PodiumDisplay raceResult={raceResult} />
+                </div>
+              )}
         </Card.Text>
       </>
     );

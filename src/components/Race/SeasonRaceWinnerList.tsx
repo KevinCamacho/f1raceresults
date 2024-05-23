@@ -15,7 +15,7 @@ const SeasonRaceWinnerList: FC<{ year: string }> = ({ year }) => {
   return (
     <Row style={{ rowGap: "1rem" }}>
       {data?.map((meeting: IMeeting) => (
-        <Col xs={12} sm={6} /* md={4} */ /* lg={3} */ key={meeting.meeting_key}>
+        <Col xs={12} sm={6} md={4} /* lg={3} */ key={meeting.meeting_key}>
           <RaceCard meeting={meeting} />
         </Col>
       ))}

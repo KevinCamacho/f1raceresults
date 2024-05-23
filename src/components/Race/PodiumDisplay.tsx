@@ -10,13 +10,7 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
   const { data: drivers, isFetching } = useDrivers(raceResult[0].session_key);
 
   if (isFetching) {
-    return (
-      <Stack gap={2}>
-        {getFinishBadgeLoadingState()}
-        {getFinishBadgeLoadingState()}
-        {getFinishBadgeLoadingState()}
-      </Stack>
-    );
+    return getPodiumDisplayLoadingState();
   }
 
   return (
@@ -44,3 +38,13 @@ const PodiumDisplay: FC<{ raceResult: IPosition[] }> = ({ raceResult }) => {
 };
 
 export default PodiumDisplay;
+
+export const getPodiumDisplayLoadingState = () => {
+  return (
+    <Stack gap={2}>
+      {getFinishBadgeLoadingState()}
+      {getFinishBadgeLoadingState()}
+      {getFinishBadgeLoadingState()}
+    </Stack>
+  );
+};
