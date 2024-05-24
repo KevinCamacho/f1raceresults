@@ -14,18 +14,17 @@ import { getPodiumDisplayLoadingState } from "./PodiumDisplay";
 const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
   const { ref, inView } = useInView();
 
-  const { data: sessionData, isFetching: isRaceSessionFetching } =
+  const { data: sessionData, isFetching: isSessionDataFetching } =
     useRaceSession(meeting.year, meeting.meeting_key);
-  const { data: raceResult, isFetching: isRaceResultFetching } =
-    useRacePositions(
-      sessionData?.length ? sessionData?.[0].session_key : 0,
-      inView,
-    );
+  const {
+    data: raceFinishPositions,
+    isFetching: isRaceFinishPositionsFetching,
+  } = useRacePositions(sessionData?.[0]?.session_key || 0, inView);
 
   const [showResultOffCanvas, setShowResultOffCanvas] =
     useState<Boolean>(false);
 
-  if (isRaceSessionFetching) {
+  if (isSessionDataFetching) {
     return (
       <Card className="h-100">
         <Card.Header>
@@ -77,18 +76,14 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
       <>
         <Card.Subtitle className="mb-2 text-muted">
           <div>{meeting.circuit_short_name}</div>
-          {sessionData ? (
-            <div>{printLocalTime(sessionData?.[0].parsed_date_start)}</div>
-          ) : (
-            <></>
-          )}
+          <div>{printLocalTime(sessionData[0].parsed_date_start)}</div>
         </Card.Subtitle>
         <Card.Text>
-          {isRaceResultFetching
+          {isRaceFinishPositionsFetching
             ? getPodiumDisplayLoadingState()
-            : raceResult?.length && (
+            : raceFinishPositions?.length && (
                 <div className="pt-3">
-                  <PodiumDisplay raceResult={raceResult} />
+                  <PodiumDisplay raceResult={raceFinishPositions} />
                 </div>
               )}
         </Card.Text>
@@ -116,7 +111,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
           <Offcanvas.Title>{meeting.meeting_name}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <RaceResultStack raceResult={raceResult || []} />
+          <RaceResultStack raceResult={raceFinishPositions || []} />
         </Offcanvas.Body>
       </Offcanvas>
     </>
