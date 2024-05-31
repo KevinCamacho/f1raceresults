@@ -16,6 +16,7 @@ const RaceCard: FC<{ meeting: IMeeting }> = ({ meeting }) => {
 
   const { data: sessionData, isFetching: isSessionDataFetching } =
     useRaceSession(meeting.year, meeting.meeting_key);
+
   const {
     data: raceFinishPositions,
     isFetching: isRaceFinishPositionsFetching,

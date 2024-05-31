@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { IDriver } from "../types";
-import axios from "axios";
+import {
+  getAllDriversInSession,
+  getSingleDriverInSession,
+} from "../api/driver";
 
 export const useDrivers = (session_key: number) => {
   return useQuery<IDriver[]>({
@@ -16,27 +19,4 @@ export const useDriver = (driver_number: number, session_key: number) => {
     queryFn: () => getSingleDriverInSession(driver_number, session_key),
     enabled: !!driver_number && !!session_key,
   });
-};
-
-const getAllDriversInSession = (session_key: number): Promise<IDriver[]> => {
-  return axios
-    .get(`https://api.openf1.org/v1/drivers?session_key=${session_key}`)
-    .then((response) => {
-      const { data }: { data: IDriver[] } = response;
-      return data;
-    });
-};
-
-const getSingleDriverInSession = (
-  driver_number: number,
-  session_key: number,
-): Promise<IDriver> => {
-  return axios
-    .get(
-      `https://api.openf1.org/v1/drivers?driver_number=${driver_number}&session_key=${session_key}`,
-    )
-    .then((response) => {
-      const { data }: { data: IDriver[] } = response;
-      return data[0];
-    });
 };
