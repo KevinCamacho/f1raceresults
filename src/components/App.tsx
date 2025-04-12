@@ -7,7 +7,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 const App: FC = () => {
-  const years: string[] = ["2023", "2024"];
+  const years: string[] = ["2023", "2024", "2025"];
   const [selectedYear, setSelectedYear] = useState<string>(
     years[years.length - 1],
   );
